@@ -3,8 +3,7 @@ package com.cydeo.model;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -14,10 +13,24 @@ import java.time.LocalDate;
 @ToString
 public class Employee {
 
-    @NotNull
-    //@Pattern(regexp = "a-z")
+    /**
+     * To validate each field we need to use javax.validation validators
+     * above each field as shown below examples
+     */
+    /**@NotNull  - Except null, anything can be accepted,
+      everything besides null, "" <- mean some string it's not null*/
+
+     /**@NotEmpty - Except null and empty String anything can be accepted
+      * it doesn't accept null and "" it considered as empty */
+
+     /**@NotBlank - Except null, empty String and only space anything can be accepted,
+                   it won't accept " " empty string characters */
+
+    @NotBlank
+    //@Size(min = 2, max = 10)
+    @Pattern(regexp = "^[A-Za-z]{2,12}")
     private String firstName;
-    @NotNull
+    @NotEmpty
     private String lastName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
